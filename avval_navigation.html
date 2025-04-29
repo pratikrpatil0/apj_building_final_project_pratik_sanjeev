@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avval's APJ Building Navigation Journey</title>
+    <link rel="stylesheet" href="front_page_.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Custom styling for this page's title */
+        .avval-title-container {
+            text-align: center;
+            margin-top: 120px;
+            padding: 0 20px;
+            margin-bottom: 60px;
+        }
+        
+        .avval-title {
+            color: #F1C40F !important; /* Bright yellow */
+            font-family: 'Roboto Slab', serif;
+            font-size: 3.5rem !important;
+            font-weight: bold;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.7);
+            margin: 0 auto;
+            display: inline-block;
+            position: relative;
+            padding: 10px 30px;
+            animation: glow 3s infinite alternate;
+        }
+        
+        .avval-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: #F1C40F;
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.7); }
+            100% { text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8), 0 0 30px rgba(241, 196, 15, 0.6); }
+        }
+        
+        /* Navigation Container */
+        .journey-container {
+            width: 92%;
+            max-width: 1600px;
+            margin: 0 auto 60px;
+            position: relative;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Navigation buttons container */
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        /* Button wrapper with traffic light */
+        .button-wrapper {
+            display: flex;
+            align-items: center;
+            width: calc(33.33% - 20px);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        /* Traffic Light Rod */
+        .traffic-light {
+            width: 12px;
+            height: 40px;
+            background: #333;
+            border-radius: 6px;
+            position: relative;
+            margin-right: 10px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.8), 0 0 5px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .traffic-light::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 30px;
+            border-radius: 3px;
+            background: #E74C3C; /* Default red */
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.7);
+            animation: trafficPulse 4s infinite;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        
+        @keyframes trafficPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        /* Active Traffic Light */
+        .button-wrapper:hover .traffic-light::before {
+            background: #2ECC71; /* Green when hovered */
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.8);
+            animation: greenPulse 1s infinite alternate;
+        }
+        
+        @keyframes greenPulse {
+            0% { opacity: 0.8; box-shadow: 0 0 10px rgba(46, 204, 113, 0.6); }
+            100% { opacity: 1; box-shadow: 0 0 20px rgba(46, 204, 113, 1); }
+        }
+        
+        /* Button card style */
+        .nav-button {
+            width: calc(100% - 22px);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            color: #F1C40F;
+            cursor: pointer;
+            border: 2px solid rgba(241, 196, 15, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+        
+        .nav-button i {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .nav-button .btn-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            line-height: 1.3;
+            color: white;
+        }
+        
+        .button-wrapper:hover .nav-button {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.75);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 30px rgba(241, 196, 15, 0.4);
+            border-color: rgba(241, 196, 15, 0.8);
+        }
+        
+        .nav-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, 
+                rgba(255, 255, 255, 0) 30%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                rgba(255, 255, 255, 0) 70%);
+            transform: translateX(-100%);
+            transition: transform 0.8s;
+        }
+        
+        .button-wrapper:hover .nav-button::after {
+            transform: translateX(100%);
+        }
+        
+        /* Light Connection Lines */
+        .light-connection {
+            position: absolute;
+            left: 6px;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                rgba(231, 76, 60, 0) 0%,
+                rgba(231, 76, 60, 0.3) 20%, 
+                rgba(231, 76, 60, 0.5) 50%,
+                rgba(231, 76, 60, 0.3) 80%,
+                rgba(231, 76, 60, 0) 100%);
+        }
+        
+        /* Staggered animations for traffic lights */
+        .button-wrapper:nth-child(1) .traffic-light::before { animation-delay: 0s; }
+        .button-wrapper:nth-child(2) .traffic-light::before { animation-delay: 0.2s; }
+        .button-wrapper:nth-child(3) .traffic-light::before { animation-delay: 0.4s; }
+        .button-wrapper:nth-child(4) .traffic-light::before { animation-delay: 0.6s; }
+        .button-wrapper:nth-child(5) .traffic-light::before { animation-delay: 0.8s; }
+        .button-wrapper:nth-child(6) .traffic-light::before { animation-delay: 1s; }
+        .button-wrapper:nth-child(7) .traffic-light::before { animation-delay: 1.2s; }
+        .button-wrapper:nth-child(8) .traffic-light::before { animation-delay: 1.4s; }
+        .button-wrapper:nth-child(9) .traffic-light::before { animation-delay: 1.6s; }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .button-wrapper {
+                width: calc(50% - 15px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .journey-container {
+                padding: 20px 15px;
+            }
+            
+            .button-wrapper {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop id="background-video">
+            <source src="apj_background.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Navigation Menu -->
+    <header class="navbar">
+        <div class="logo-container">
+            <a href="front_page.html">
+                <img src="apj_flame_nav_logo.png" alt="APJ Navigation Logo" class="logo">
+            </a>
+        </div>
+
+        <nav class="nav-links">
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Avval</a>
+                <div class="dropdown-menu">
+                    <a href="avval_navigation.html">User Navigation</a>
+                    <a href="avval_user_design.html">User Design</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Molecule of Oxygen</a>
+                <div class="dropdown-menu">
+                    <a href="o2_navigation.html">User Navigation</a>
+                    <a href="o2_user_design.html">User Design</a>
+                </div>
+            </div>
+            
+            <a href="about_project.html">About Project</a>
+            <a href="about_team.html">About Team</a>
+        </nav>
+    </header>
+
+    <!-- Title Section -->
+    <section class="avval-title-container">
+        <h1 class="avval-title">Avval's APJ Building Navigation Journey</h1>
+    </section>
+
+    <!-- Navigation Buttons with Traffic Lights -->
+    <div class="journey-container">
+        <!-- Navigation Buttons in Grid Layout -->
+        <div class="buttons-container">
+            <!-- Button 1 -->
+            <div class="button-wrapper">
+                <div class="traffic-light"></div>
+                <div class="nav-button" id="btn1">
+                    <i class="fas fa-door-open"></i>
+                    <div class="btn-label">APJ Main Gate to Coffee Machine</div>
+                </div>
+            </div>
+            
+            <!-- Button 2 -->
+            <div class="button-wrapper">
+                <div class="traffic-light"></div>
+                <div class="nav-button" id="btn2">
+                    <i class="fas fa-coffee"></i>
+                    <div class="btn-label">Coffee Machine to Financial Research Lab</div>
+                </div>
+            </div>
+            
+            <!-- Button 3 -->
+            <div class="button-wrapper">
+                <div class="traffic-light"></div>
+                <div class="nav-button" id="btn3">
+                    <i class="fas fa-toilet"></i>
+                    <div class="btn-label">Financial Research Lab to Washroom</div>
+                </div>
+            </div>
+            
+            <!-- Button 4 -->
+            <div class="button-wrapper">
+                <div class="traffic-light"></div>
+                <div class="nav-button" id="btn4">
+                    <i class="fas fa-laptop-code"></i>
+                    <div class="btn-label">Washroom to Financial Research Lab</div>
+                </div>
+            </div>
+            
+            <!-- Button 5 -->
+            <div class="button-wrapper">
+                <div class="traffic-light"></div>
+                <div class="nav-button" id="btn5">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="btn-label">FRL to Prof. Prajish's Office</div>
+                </div>
+            </div>
+            
+            <!-- Button 6 -->
+            <div class="button-wrapper">
+                <div class="traffic-light"></div>
+                <div class="nav-button" id="btn6">
+                    <i class="fas fa-laptop"></i>
+                    <div class="btn-label">Prof. Prajish's Office to FRL</div>
+                </div>
+            </div>
+            
+            <!-- Button 7 -->
+            <div class="button-wrapper">
+                <div class="traffic-light"></div>
+                <div class="nav-button" id="btn7">
+                    <i class="fas fa-image"></i>
+                    <div class="btn-label">FRL to Third Floor Gallery</div>
+                </div>
+            </div>
+            
+            <!-- Button 8 -->
+            <div class="button-wrapper">
+                <div class="traffic-light"></div>
+                <div class="nav-button" id="btn8">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="btn-label">Third Floor Gallery to FRL</div>
+                </div>
+            </div>
+            
+            <!-- Button 9 -->
+            <div class="button-wrapper">
+                <div class="traffic-light"></div>
+                <div class="nav-button" id="btn9">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <div class="btn-label">FRL to Main Gate of APJ</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="front_page.js"></script>
+    <script>
+        // Navigation buttons functionality with proper redirection
+        document.addEventListener('DOMContentLoaded', function() {
+            // Button 1 - APJ Main Gate to Coffee Machine
+            document.getElementById('btn1').addEventListener('click', function() {
+                window.location.href = 'avval_vid1.html';
+            });
+            
+            // Button 2 - Coffee Machine to Financial Research Lab
+            document.getElementById('btn2').addEventListener('click', function() {
+                window.location.href = 'avval_vid2.html';
+            });
+            
+            // Button 3 - Financial Research Lab to Washroom
+            document.getElementById('btn3').addEventListener('click', function() {
+                window.location.href = 'avval_vid3.html';
+            });
+            
+            // Button 4 - Washroom to Financial Research Lab
+            document.getElementById('btn4').addEventListener('click', function() {
+                window.location.href = 'avval_vid4.html';
+            });
+            
+            // Button 5 - Financial Research Lab to Prof. Prajish's Office
+            document.getElementById('btn5').addEventListener('click', function() {
+                window.location.href = 'avval_vid5.html';
+            });
+            
+            // Button 6 - Prof. Prajish's Office to Financial Research Lab
+            document.getElementById('btn6').addEventListener('click', function() {
+                window.location.href = 'avval_vid6.html';
+            });
+            
+            // Button 7 - Financial Research Lab to Third Floor Gallery
+            document.getElementById('btn7').addEventListener('click', function() {
+                window.location.href = 'avval_vid7.html';
+            });
+            
+            // Button 8 - Third Floor Gallery to Financial Research Lab
+            document.getElementById('btn8').addEventListener('click', function() {
+                window.location.href = 'avval_vid8.html';
+            });
+            
+            // Button 9 - Financial Research Lab to Main Gate of APJ
+            document.getElementById('btn9').addEventListener('click', function() {
+                window.location.href = 'avval_vid9.html';
+            });
+            
+            // Make the entire button wrapper clickable
+            const buttonWrappers = document.querySelectorAll('.button-wrapper');
+            buttonWrappers.forEach(wrapper => {
+                const button = wrapper.querySelector('.nav-button');
+                wrapper.addEventListener('click', function() {
+                    button.click();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

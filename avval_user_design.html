@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Design - Avval</title>
+    <link rel="stylesheet" href="front_page_.css">
+</head>
+<body>
+    <!-- Loading overlay with logo -->
+    <div class="loading-overlay">
+        <div class="logo-loader">
+            <img src="apj_flame_nav_logo.png" alt="APJ Navigation Logo">
+            <div class="pulse-rings">
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop id="background-video">
+            <source src="apj_background.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <a href="front_page.html">
+                <img src="apj_flame_nav_logo.png" alt="APJ Navigation Logo" class="logo">
+            </a>
+        </div>
+
+        <nav class="nav-links">
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Avval</a>
+                <div class="dropdown-menu">
+                    <a href="#user-navigation">User Navigation</a>
+                    <a href="avval_user_design.html">User Design</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Molecule of Oxygen</a>
+                <div class="dropdown-menu">
+                    <a href="o2_navigation.html">User Navigation</a>
+                    <a href="o2_user_design.html">User Design</a>
+                </div>
+            </div>
+            
+            <a href="#about-project">About Project</a>
+            <a href="about_team.html">About Team</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Include the Who's Avval section -->
+        <div id="avval-profile-container"></div>
+        
+        <!-- Include the User Persona section -->
+        <div id="avval-persona-container"></div>
+        
+        <!-- Include the Interview section -->
+        <div id="avval-interview-container"></div>
+    </main>
+
+    <script>
+        // Load the components after page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load Avval Profile
+            fetch('user_design_sec_avval.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('avval-profile-container').innerHTML = html;
+                });
+                
+            // Load Avval Persona
+            fetch('avval_persona_sec_avval.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('avval-persona-container').innerHTML = html;
+                });
+                
+            // Load Avval Interview
+            fetch('interview_sec_avval.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('avval-interview-container').innerHTML = html;
+                });
+        });
+    </script>
+    
+    <!-- This script is needed to hide the loading overlay -->
+    <script src="front_page.js"></script>
+</body>
+</html>

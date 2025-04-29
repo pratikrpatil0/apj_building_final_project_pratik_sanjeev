@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Project - APJ Building Navigation</title>
+    <link rel="stylesheet" href="front_page_.css">
+    <style>
+        /* About Project Specific Styles */
+        .about-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+            color: white;
+            position: relative;
+            margin-top: 70px;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.9);
+            max-width: 900px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slide-up 1s forwards ease-out;
+            margin-bottom: 60px;
+        }
+
+        .about-header {
+            background: linear-gradient(135deg, #88B04B, #2E7D32);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .about-header.blue {
+            background: linear-gradient(135deg, #5bc0eb, #3a7ca5);
+        }
+
+        .about-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-content {
+            padding: 2.5rem;
+            color: #2C3E50;
+            position: relative;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #2C3E50;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: timeline-appear 0.8s forwards ease-out;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            transform: translateX(50px);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.9s; }
+        .timeline-item:nth-child(4) { animation-delay: 1.2s; }
+        .timeline-item:nth-child(5) { animation-delay: 1.5s; }
+
+        .timeline-content {
+            padding: 20px;
+            background: white;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: white;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+            box-shadow: 0 0 0 4px #2C3E50;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -17px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -17px;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #2E7D32;
+        }
+
+        .timeline-item:nth-child(even) .timeline-date {
+            color: #3a7ca5;
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .timeline-text {
+            line-height: 1.6;
+        }
+
+        /* Icon and illustration styles */
+        .icon-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            gap: 20px;
+        }
+
+        .icon-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 150px;
+            transform: scale(0.8);
+            opacity: 0;
+            animation: pop-in 0.5s forwards ease-out;
+        }
+
+        .icon-box:nth-child(1) { animation-delay: 0.2s; }
+        .icon-box:nth-child(2) { animation-delay: 0.4s; }
+        .icon-box:nth-child(3) { animation-delay: 0.6s; }
+        .icon-box:nth-child(4) { animation-delay: 0.8s; }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: #2C3E50;
+        }
+
+        .icon-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .team-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            gap: 30px;
+        }
+
+        .team-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 220px;
+            opacity: 0;
+            animation: fade-in 0.8s forwards ease-out 1.8s;
+        }
+
+        .team-role {
+            background: #f0f0f0;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .emoji-highlight {
+            font-size: 1.5em;
+            margin: 0 5px;
+            display: inline-block;
+            transform-origin: center;
+            animation: bounce 2s infinite;
+        }
+
+        /* Molecule visualization */
+        .molecule-container {
+            width: 80px;
+            height: 50px;
+            margin: 1rem auto;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .atom {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5bc0eb, #3a7ca5);
+            box-shadow: 0 0 15px rgba(91, 192, 235, 0.6);
+            position: absolute;
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        .atom:first-child {
+            left: 0;
+            animation-delay: 0s;
+        }
+
+        .atom:last-child {
+            right: 0;
+            animation-delay: 1s;
+        }
+
+        .bond {
+            width: 30px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            position: absolute;
+            top: 10px;
+            left: 25px;
+        }
+
+        /* Animations */
+        @keyframes slide-up {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes timeline-appear {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes timeline-appear-right {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pop-in {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); box-shadow: 0 0 15px rgba(91, 192, 235, 0.6); }
+            to { transform: scale(1.1); box-shadow: 0 0 25px rgba(91, 192, 235, 0.8); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-content::after {
+                left: -17px !important;
+            }
+            
+            .about-title {
+                font-size: 2rem;
+            }
+            
+            .about-text {
+                font-size: 1rem;
+            }
+        }
+
+        /* Professor Acknowledgment Section Styles */
+        .acknowledgment-card {
+            animation-delay: 0.3s;
+        }
+
+        .about-header.gold {
+            background: linear-gradient(135deg, #F1C40F, #F39C12);
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .professor-image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slide-up 1s forwards ease-out 1.2s;
+        }
+
+        .image-caption {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #34495e;
+            max-width: 600px;
+        }
+
+        .professor-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.95);
+            transition: transform 0.5s ease;
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        .professor-image:hover {
+            transform: scale(1);
+        }
+
+        @keyframes pulse-glow {
+            from {
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            }
+            to {
+                box-shadow: 0 20px 50px rgba(243, 156, 18, 0.5), 0 0 30px rgba(241, 196, 15, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading overlay with logo -->
+    <div class="loading-overlay">
+        <div class="logo-loader">
+            <img src="apj_flame_nav_logo.png" alt="APJ Navigation Logo">
+            <div class="pulse-rings">
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop id="background-video">
+            <source src="apj_background.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <header class="navbar">
+        <div class="logo-container">
+            <a href="front_page.html">
+                <img src="apj_flame_nav_logo.png" alt="APJ Navigation Logo" class="logo">
+            </a>
+        </div>
+
+        <nav class="nav-links">
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Avval</a>
+                <div class="dropdown-menu">
+                    <a href="#user-navigation">User Navigation</a>
+                    <a href="avval_navigation.html">User Navigation</a>
+                    <a href="avval_user_design.html">User Design</a>
+                </div>
+            </div>
+            
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Molecule of Oxygen</a>
+                <div class="dropdown-menu">
+                    <a href="o2_navigation.html">User Navigation</a>
+                    <a href="o2_user_design.html">User Design</a>
+                </div>
+            </div>
+            
+            <a href="about_project.html">About Project</a>
+            <a href="about_team.html">About Team</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Section 1: Project Overview and Methodology -->
+        <section class="about-section">
+            <div class="about-card">
+                <div class="about-header">
+                    <h2 class="about-title">📚 About the Project</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        For our Final Navigation Map Project, we started by identifying our conventional user. After some exploration, we selected Avval Halani — a Research Intern at FLAME University, working under Prajish Sir. <span class="emoji-highlight">🌟</span>
+                        <br><br>
+                        We conducted a contextual enquiry by interviewing Avval, where he shared his daily navigation routine inside the APJ Building. <span class="emoji-highlight">🚶‍♂</span> To make it more visual and intuitive, we asked Avval to record videos of his actual movements across his key spots — from the main gate entry, Financial Lab, faculty offices, cafeteria, and finally exiting the building.
+                        <br><br>
+                        Once we collected the videos, we edited them, adding icons, labels, and text overlays so that anyone watching could easily understand his navigation journey. <span class="emoji-highlight">🎥✨</span>
+                        We then embedded this video into our website, creating an interactive experience for the viewers.
+                    </div>
+
+                    <!-- Project Timeline -->
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">Step 1</div>
+                                <div class="timeline-title">Research & Planning</div>
+                                <p class="timeline-text">Identified our conventional user (Avval) and established project goals</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">Step 2</div>
+                                <div class="timeline-title">Contextual Enquiry</div>
+                                <p class="timeline-text">Conducted interviews to understand Avval's navigation patterns</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">Step 3</div>
+                                <div class="timeline-title">Video Documentation</div>
+                                <p class="timeline-text">Recorded actual movements through the APJ Building</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">Step 4</div>
+                                <div class="timeline-title">Visual Enhancement</div>
+                                <p class="timeline-text">Added icons, labels, and text overlays to improve clarity</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">Step 5</div>
+                                <div class="timeline-title">Website Implementation</div>
+                                <p class="timeline-text">Created interactive web experience to showcase the navigation journey</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-section">
+                        <div class="team-member">
+                            <div class="icon">🎬</div>
+                            <div class="team-role">Video Editing</div>
+                            <p>Sanjeev worked on the video editing and user journey visualization</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="icon">🌐</div>
+                            <div class="team-role">Web Development</div>
+                            <p>Pratik focused on designing and developing the website</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Creative Process and Non-conventional User -->
+            <div class="about-card">
+                <div class="about-header blue">
+                    <h2 class="about-title">🔬 Project Approach & Methodology</h2>
+                </div>
+                <div class="about-content">
+                    <div class="molecule-container">
+                        <div class="atom"></div>
+                        <div class="bond"></div>
+                        <div class="atom"></div>
+                    </div>
+                    
+                    <div class="about-text">
+                        For our nonconventional user, we chose the adventurous O₂ Molecule <span class="emoji-highlight">🌬</span>, imagining its playful, random, yet meaningful journey across the APJ Building. <span class="emoji-highlight">🌀</span>
+                        <br><br>
+                        Throughout the project, we used design thinking, created personas, and developed a symbol system to ensure our navigation maps were easy to understand, fun to explore, and well-aligned with the goals of the assignment. <span class="emoji-highlight">🎨</span>
+                    </div>
+
+                    <!-- Icon Container for Project Elements -->
+                    <div class="icon-container">
+                        <div class="icon-box">
+                            <div class="icon">👥</div>
+                            <div class="icon-title">User Personas</div>
+                            <p>Created detailed profiles for both conventional and non-conventional users</p>
+                        </div>
+                        <div class="icon-box">
+                            <div class="icon">🗺️</div>
+                            <div class="icon-title">Symbol System</div>
+                            <p>Developed consistent visual language for navigation points</p>
+                        </div>
+                        <div class="icon-box">
+                            <div class="icon">🧠</div>
+                            <div class="icon-title">Design Thinking</div>
+                            <p>Applied iterative problem-solving approach</p>
+                        </div>
+                        <div class="icon-box">
+                            <div class="icon">🚀</div>
+                            <div class="icon-title">Interactive Experience</div>
+                            <p>Created engaging visual journey through the space</p>
+                        </div>
+                    </div>
+
+                    <!-- Additional Timeline -->
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">Phase 1</div>
+                                <div class="timeline-title">User Research</div>
+                                <p class="timeline-text">Understanding both human and non-human navigation patterns</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">Phase 2</div>
+                                <div class="timeline-title">Creative Ideation</div>
+                                <p class="timeline-text">Brainstorming unique ways to visualize the O₂ molecule journey</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">Phase 3</div>
+                                <div class="timeline-title">Symbol Development</div>
+                                <p class="timeline-text">Creating icons and visual representations for navigation points</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">Phase 4</div>
+                                <div class="timeline-title">Digital Implementation</div>
+                                <p class="timeline-text">Building the interactive website with engaging animations</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">Phase 5</div>
+                                <div class="timeline-title">User Testing & Refinement</div>
+                                <p class="timeline-text">Gathering feedback and making final improvements</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-section">
+                        <div class="team-member">
+                            <div class="icon">🎬</div>
+                            <div class="team-role">Video Editing</div>
+                            <p>Sanjeev worked on the video editing and user journey visualization</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="icon">🌐</div>
+                            <div class="team-role">Web Development</div>
+                            <p>Pratik focused on designing and developing the website</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professor Acknowledgment Section -->
+            <div class="about-card acknowledgment-card">
+                <div class="about-header gold">
+                    <h2 class="about-title">👨‍🏫 Special Thanks to Professor Vinod Vidwans</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-text center-text">
+                        This project was assigned and beautifully guided by Professor Vinod Vidwans. <span class="emoji-highlight">🌟</span>
+                        <br><br>
+                        Throughout our journey, he shared invaluable insights, constantly encouraging us to think deeper, imagine freely, and design thoughtfully. <span class="emoji-highlight">🎨🧠</span>
+                        <br><br>
+                        Every interaction with him made the project more meaningful, exciting, and memorable.
+                        His patience, creativity, and passion for teaching truly inspired us at every step. <span class="emoji-highlight">🙌</span>
+                        <br><br>
+                        We are grateful to have had the chance to learn under his mentorship.
+                    </div>
+                    
+                    <div class="professor-image-container">
+                        <div class="image-caption">Here's a special memory — our group photo with Professor Vinod Vidwans, a moment we'll always cherish! <span class="emoji-highlight">📸❤️</span></div>
+                        <img src="sir_with_group.jpg" alt="Group photo with Professor Vinod Vidwans" class="professor-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="front_page.js"></script>
+    <script>
+        // Animation trigger for timeline and icon boxes when they enter viewport
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        function handleScrollAnimation() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const iconBoxes = document.querySelectorAll('.icon-box');
+            
+            timelineItems.forEach(item => {
+                if (isElementInViewport(item) && !item.classList.contains('animated')) {
+                    item.classList.add('animated');
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }
+            });
+            
+            iconBoxes.forEach(box => {
+                if (isElementInViewport(box) && !box.classList.contains('animated')) {
+                    box.classList.add('animated');
+                    box.style.opacity = '1';
+                    box.style.transform = 'scale(1)';
+                }
+            });
+        }
+
+        // Initial check and add scroll listener
+        window.addEventListener('scroll', handleScrollAnimation);
+        window.addEventListener('load', handleScrollAnimation);
+    </script>
+</body>
+</html>

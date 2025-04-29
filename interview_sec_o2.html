@@ -1,0 +1,453 @@
+<!-- interview_sec_o2.html -->
+<style>
+    /* O₂ Interview Card Styles */
+    .o2-interview {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .interview-card {
+        background: rgba(255, 255, 255, 0.9);
+        max-width: 800px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        transform: translateY(30px);
+        opacity: 0;
+        animation: card-appear 0.8s forwards ease-out 0.5s;
+    }
+
+    .interview-header {
+        background: linear-gradient(135deg, #5bc0eb, #3a7ca5);
+        padding: 2rem;
+        color: white;
+        text-align: center;
+        position: relative;
+    }
+
+    .interview-title {
+        margin: 0;
+        font-size: 2.3rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        animation: title-glow 2s ease-in-out infinite alternate;
+    }
+
+    .interview-content {
+        padding: 2rem;
+        color: #2C3E50;
+        position: relative;
+    }
+
+    /* Background bubbles for O₂ theme */
+    .bubble {
+        position: absolute;
+        background: rgba(91, 192, 235, 0.15);
+        border-radius: 50%;
+        animation: rise var(--rise-duration) ease-in infinite;
+        opacity: 0.7;
+        z-index: 0;
+    }
+
+    /* Generate 10 bubbles with different sizes and positions */
+    .bubble:nth-child(1) { width: 20px; height: 20px; left: 10%; --rise-duration: 8s; animation-delay: 0s; }
+    .bubble:nth-child(2) { width: 15px; height: 15px; left: 20%; --rise-duration: 10s; animation-delay: 2s; }
+    .bubble:nth-child(3) { width: 25px; height: 25px; left: 30%; --rise-duration: 7s; animation-delay: 1s; }
+    .bubble:nth-child(4) { width: 10px; height: 10px; left: 40%; --rise-duration: 12s; animation-delay: 3s; }
+    .bubble:nth-child(5) { width: 18px; height: 18px; left: 50%; --rise-duration: 9s; animation-delay: 4s; }
+    .bubble:nth-child(6) { width: 22px; height: 22px; left: 60%; --rise-duration: 11s; animation-delay: 0s; }
+    .bubble:nth-child(7) { width: 12px; height: 12px; left: 70%; --rise-duration: 13s; animation-delay: 2s; }
+    .bubble:nth-child(8) { width: 28px; height: 28px; left: 80%; --rise-duration: 8s; animation-delay: 3s; }
+    .bubble:nth-child(9) { width: 16px; height: 16px; left: 90%; --rise-duration: 10s; animation-delay: 1s; }
+    .bubble:nth-child(10) { width: 14px; height: 14px; left: 15%; --rise-duration: 9s; animation-delay: 5s; }
+
+    .qa-pair {
+        margin-bottom: 2rem;
+        opacity: 0;
+        animation: fade-in 0.5s forwards ease-out;
+        position: relative;
+        z-index: 2;
+    }
+
+    .qa-pair:nth-child(1) { animation-delay: 0.7s; }
+    .qa-pair:nth-child(2) { animation-delay: 0.9s; }
+    .qa-pair:nth-child(3) { animation-delay: 1.1s; }
+    .qa-pair:nth-child(4) { animation-delay: 1.3s; }
+    .qa-pair:nth-child(5) { animation-delay: 1.5s; }
+    .qa-pair:nth-child(6) { animation-delay: 1.7s; }
+
+    .question {
+        font-weight: 600;
+        color: #3a7ca5;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .question-emoji {
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+    }
+
+    /* Answer container to accommodate molecule */
+    .answer-container {
+        display: flex;
+        align-items: flex-start;
+        margin-left: 2rem;
+    }
+
+    /* O₂ molecule avatar styling */
+    .o2-avatar {
+        width: 50px;
+        height: 30px;
+        margin-right: 12px;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .o2-atom {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #5bc0eb, #3a7ca5);
+        box-shadow: 0 0 10px rgba(91, 192, 235, 0.8);
+        position: absolute;
+        animation: pulse 2s ease-in-out infinite alternate;
+    }
+
+    .o2-atom:first-child {
+        left: 0;
+        animation-delay: 0s;
+    }
+
+    .o2-atom:last-child {
+        right: 0;
+        animation-delay: 1s;
+    }
+
+    .o2-bond {
+        width: 20px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 2px;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        position: absolute;
+        top: 8px;
+        left: 15px;
+    }
+
+    .answer {
+        background: rgba(91, 192, 235, 0.1);
+        padding: 1.5rem;
+        border-radius: 10px;
+        position: relative;
+        flex-grow: 1;
+    }
+
+    .answer::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: -10px;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid rgba(91, 192, 235, 0.1);
+    }
+
+    .answer p {
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .flow-section {
+        margin-top: 3rem;
+        padding: 1.5rem;
+        background: rgba(91, 192, 235, 0.1);
+        border-radius: 10px;
+        border-left: 4px solid #5bc0eb;
+        opacity: 0;
+        animation: slide-in 0.6s forwards ease-out 2.1s;
+        position: relative;
+        z-index: 2;
+    }
+
+    .flow-title {
+        color: #3a7ca5;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .flow-emoji {
+        margin-right: 0.5rem;
+    }
+
+    .flow-diagram {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 1rem 0;
+    }
+
+    .flow-step {
+        background: white;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+    }
+
+    .flow-arrow {
+        color: #5bc0eb;
+        font-size: 1.5rem;
+    }
+
+    .fun-fact {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: rgba(91, 192, 235, 0.1);
+        border-radius: 10px;
+        border-left: 4px solid #5bc0eb;
+        opacity: 0;
+        animation: slide-in 0.6s forwards ease-out 2.3s;
+        position: relative;
+        z-index: 2;
+    }
+
+    .fun-fact-title {
+        color: #3a7ca5;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .fun-fact-emoji {
+        margin-right: 0.5rem;
+    }
+
+    /* Animations */
+    @keyframes card-appear {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slide-in {
+        from { transform: translateX(-20px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes title-glow {
+        from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+        to { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.5); }
+    }
+
+    @keyframes pulse {
+        from { transform: scale(1); box-shadow: 0 0 10px rgba(91, 192, 235, 0.8); }
+        to { transform: scale(1.1); box-shadow: 0 0 15px rgba(91, 192, 235, 1); }
+    }
+
+    @keyframes rise {
+        0% { bottom: -20px; opacity: 0.7; }
+        100% { bottom: 100%; opacity: 0; }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .interview-title {
+            font-size: 1.8rem;
+        }
+        
+        .interview-content {
+            padding: 1.5rem;
+        }
+        
+        .flow-diagram {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .flow-arrow {
+            transform: rotate(90deg);
+            margin: 0.25rem 0;
+        }
+        
+        .o2-avatar {
+            width: 40px;
+            height: 25px;
+        }
+        
+        .o2-atom {
+            width: 15px;
+            height: 15px;
+        }
+        
+        .o2-bond {
+            width: 15px;
+            height: 3px;
+            left: 12px;
+            top: 6px;
+        }
+    }
+</style>
+
+<section id="interview-section" class="o2-interview">
+    <div class="interview-card">
+        <div class="interview-header">
+            <h2 class="interview-title">🎤 Interview with O₂ Molecule: "A Day Inside APJ Building"</h2>
+        </div>
+        <div class="interview-content">
+            <!-- Bubbles background -->
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            
+            <div class="qa-pair">
+                <div class="question">
+                    <span class="question-emoji">👻</span> Q: Hey O₂! How does your day in APJ begin?
+                </div>
+                <div class="answer-container">
+                    <div class="o2-avatar">
+                        <div class="o2-atom"></div>
+                        <div class="o2-bond"></div>
+                        <div class="o2-atom"></div>
+                    </div>
+                    <div class="answer">
+                        <p>"I usually float in from the Top Floor 🌬️ — no doors needed for me! I just slide in with the air and start my adventure."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qa-pair">
+                <div class="question">
+                    <span class="question-emoji">🏛️</span> Q: Where do you head first inside?
+                </div>
+                <div class="answer-container">
+                    <div class="o2-avatar">
+                        <div class="o2-atom"></div>
+                        <div class="o2-bond"></div>
+                        <div class="o2-atom"></div>
+                    </div>
+                    <div class="answer">
+                        <p>"I dance randomly around the Financial Lab 📊 — sometimes near computers 💻, sometimes under the tables 🪑, sometimes bumping into humans' noses! 👃😆"</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qa-pair">
+                <div class="question">
+                    <span class="question-emoji">😮‍💨</span> Q: Wait, you enter people too?!
+                </div>
+                <div class="answer-container">
+                    <div class="o2-avatar">
+                        <div class="o2-atom"></div>
+                        <div class="o2-bond"></div>
+                        <div class="o2-atom"></div>
+                    </div>
+                    <div class="answer">
+                        <p>"Absolutely! I zip into a nose 👃 with a deep breath... and sometimes I fly out again with a sneeze 🤧 or a yawn! It's like riding a rollercoaster!"</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qa-pair">
+                <div class="question">
+                    <span class="question-emoji">☕</span> Q: Do you explore other places too?
+                </div>
+                <div class="answer-container">
+                    <div class="o2-avatar">
+                        <div class="o2-atom"></div>
+                        <div class="o2-bond"></div>
+                        <div class="o2-atom"></div>
+                    </div>
+                    <div class="answer">
+                        <p>"Yes! I love sneaking into coffee cups ☕ with hot air, hiding inside water bottles 🚰, and chilling around tiffins 🍱 during lunch! I even land on students' notebooks 📖 during lectures."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qa-pair">
+                <div class="question">
+                    <span class="question-emoji">❄️</span> Q: How do you move around so much?
+                </div>
+                <div class="answer-container">
+                    <div class="o2-avatar">
+                        <div class="o2-atom"></div>
+                        <div class="o2-bond"></div>
+                        <div class="o2-atom"></div>
+                    </div>
+                    <div class="answer">
+                        <p>"The AC breeze 🌀 and the lift fans 🧯 spin me around! It's a free, nonstop ride — until I find something fun to settle on."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qa-pair">
+                <div class="question">
+                    <span class="question-emoji">🌿</span> Q: And how does your day end?
+                </div>
+                <div class="answer-container">
+                    <div class="o2-avatar">
+                        <div class="o2-atom"></div>
+                        <div class="o2-bond"></div>
+                        <div class="o2-atom"></div>
+                    </div>
+                    <div class="answer">
+                        <p>"By evening, I usually get sucked in by a plant's stomata 🌿 for photosynthesis! It's peaceful — like going home. 🌇✨"</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flow-section">
+                <div class="flow-title">
+                    <span class="flow-emoji">✨</span> Quick Flow of O₂'s Day in APJ:
+                </div>
+                <div class="flow-diagram">
+                    <div class="flow-step">Top Floor Entry 🌬️</div>
+                    <div class="flow-arrow">➡️</div>
+                    <div class="flow-step">Random Financial Lab Motion 📊</div>
+                    <div class="flow-arrow">➡️</div>
+                    <div class="flow-step">Into Noses 👃 & Out in Sneezes 🤧</div>
+                    <div class="flow-arrow">➡️</div>
+                    <div class="flow-step">Water Bottles 🚰 + Tiffins 🍱 + Coffee ☕</div>
+                    <div class="flow-arrow">➡️</div>
+                    <div class="flow-step">Notebooks 📖</div>
+                    <div class="flow-arrow">➡️</div>
+                    <div class="flow-step">AC and Lift Fan Rides 🌀</div>
+                    <div class="flow-arrow">➡️</div>
+                    <div class="flow-step">Absorbed by Plants 🌿</div>
+                </div>
+            </div>
+            
+            <div class="fun-fact">
+                <div class="fun-fact-title">
+                    <span class="fun-fact-emoji">🔥</span> Fun fact about O₂:
+                </div>
+                <p>It's been floating around Earth for billions of years and still loves new adventures every single day! 🚀🌍</p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,1105 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto+Slab:wght@400;700&display=swap');
+
+:root {
+    --primary: #88B04B;       /* Leafy Green */
+    --secondary: #457b9d;
+    --accent: #2E7D32;        /* Darker Forest Green */
+    --light: #f1faee;
+    --text: #333;
+    --background: #FAF3E0;    /* Light Cream/Beige */
+    --sunshine: #F9E79F;      /* Soft Yellow */
+    --highlight: #F5B041;     /* Warm Orange */
+    --text-dark: #2C3E50;     /* Deep Gray */
+    --text-light: #FFFFFF;    /* White */
+    --title-color: #F1C40F;   /* Dark yellow */
+}
+
+/* Body style with full-page background */
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: none;
+    overflow-x: hidden;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* New animations for menu items */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rotateSlight {
+    0% { transform: rotate(-10deg) scale(0.8); opacity: 0; }
+    100% { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+/* Glitch Effect for Title */
+.glitch-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+.glitch-text {
+    font-size: 5rem;
+    font-weight: bold;
+    position: relative;
+    color: var(--accent);
+    animation: glitch 2s infinite;
+    text-shadow: none;
+    margin-bottom: 0;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: 'APJ Building Navigation Map';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    background: transparent;
+}
+
+.glitch-text::before {
+    color: var(--highlight);
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    animation: glitch-top 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+    color: var(--primary);
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    animation: glitch-bottom 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-top {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(0px, 2px);
+    }
+    80% {
+        transform: translate(2px, -1px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes glitch-bottom {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(2px, -2px);
+    }
+    40% {
+        transform: translate(2px, 2px);
+    }
+    60% {
+        transform: translate(-1px, -1px);
+    }
+    80% {
+        transform: translate(-1px, 2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+/* Remove the default underline from h1 in hero section */
+.glitch-text::after {
+    content: 'APJ Building Navigation Map';
+    background-color: transparent;
+    margin: 0;
+    height: auto;
+    width: auto;
+}
+
+/* Add the underline as a separate element */
+.glitch-container::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 6px;
+    background-color: var(--highlight);
+    margin: 1rem auto;
+}
+
+/* Apply animations to elements */
+.logo {
+    animation: fadeIn 1s ease forwards;
+}
+
+nav {
+    animation: slideInRight 1s ease forwards;
+}
+
+.hero h1 {
+    animation: slideInUp 1.2s ease forwards;
+    opacity: 0;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    color: var(--accent);  /* var(--accent) is #2E7D32 (green) */
+}
+
+.hero .tagline {
+    animation: slideInUp 1.2s ease forwards;
+    opacity: 0;
+    animation-delay: 0.8s;
+    animation-fill-mode: forwards;
+}
+
+.hero .glitch-text {
+    animation: glitch 2s infinite, slideInUp 1.2s ease forwards;
+    opacity: 0;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.video-container, .content-section {
+    animation: fadeIn 1.5s ease forwards;
+    opacity: 0;
+    animation-delay: 1.2s;
+    animation-fill-mode: forwards;
+}
+
+/* Updated Header and Navigation Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 5%; /* Reduced padding */
+    background-color: rgba(29, 53, 87, 0.8); /* Semi-transparent background */
+    color: var(--light);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 0.3s ease; /* Smooth transition */
+    backdrop-filter: blur(5px); /* Add blur effect behind the header */
+}
+
+/* Header becomes more opaque on hover */
+header:hover {
+    background-color: rgba(29, 53, 87, 0.95);
+}
+
+/* Logo styling */
+.logo {
+    animation: fadeIn 1s ease forwards;
+}
+
+.logo a {
+    display: block;
+    text-decoration: none;
+}
+
+/* Updated logo size only */
+.logo img {
+    height: 90px; /* Increased from 70px to 90px */
+    width: auto;
+    transition: transform 0.3s ease;
+    animation: rotateSlight 1.5s ease-out;
+}
+
+/* Logo animation */
+@keyframes rotateSlight {
+    0% { transform: rotate(-10deg) scale(0.8); opacity: 0; }
+    100% { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+/* Navigation menu */
+nav {
+    animation: slideInRight 1s ease forwards;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 0.8rem; /* Further reduced spacing */
+    position: relative;
+}
+
+/* Menu text animation */
+nav ul li {
+    opacity: 0;
+    animation: fadeInDown 0.5s forwards;
+}
+
+nav ul li:nth-child(1) { animation-delay: 0.1s; }
+nav ul li:nth-child(2) { animation-delay: 0.2s; }
+nav ul li:nth-child(3) { animation-delay: 0.3s; }
+nav ul li:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--light);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.25rem 0.6rem; /* Further reduced padding */
+    border-radius: 4px;
+    font-size: 0.85rem; /* Further reduced font size */
+    letter-spacing: 0.5px; /* Added letter spacing for better readability */
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px); /* Reduced movement */
+    color: white;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); /* Glow effect */
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Adjusted from -3px */
+    left: 0;
+    width: 0;
+    height: 1px; /* Thinner line */
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+nav ul li a.active::after {
+    width: 100%;
+}
+
+/* Main content */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+    padding-top: 0; /* Remove top padding since hero is full-screen */
+}
+
+/* Full-screen Hero Section */
+.hero {
+    text-align: center;
+    height: 100vh; /* Full viewport height */
+    margin-bottom: 0; /* Remove bottom margin */
+    padding: 0; /* Remove padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none; /* Remove the background since it's now on the body */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Increased title size */
+.main-title, .hero .main-title {
+    color: var(--title-color) !important; /* Yellow color */
+    font-family: 'Roboto Slab', serif;
+    font-size: 5rem !important;
+    font-weight: bold;
+    text-shadow: 
+        3px 3px 0 rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 0, 0, 0.7);
+    margin-bottom: 2rem;
+    padding: 0 20px;
+    line-height: 1.2;
+    letter-spacing: 2px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    display: block !important;
+    animation: none !important; /* Prevent animations from hiding it */
+}
+
+/* Larger underline */
+.hero h1::after {
+    content: '';
+    display: block;
+    width: 120px; /* Increased from 80px */
+    height: 6px; /* Increased from 4px */
+    background-color: var(--highlight);
+    margin: 1rem auto;
+}
+
+/* Larger tagline */
+.hero .tagline {
+    font-size: 1.8rem; /* Increased from 1.4rem */
+    color: var(--text-dark);
+    max-width: 1000px; /* Increased from 800px */
+    margin: 0 auto;
+    font-weight: 500;
+    padding: 0 20px;
+    line-height: 1.5;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Enhanced text shadow */
+}
+
+/* Scroll indicator */
+/* .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232E7D32'%3E%3Cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: bounce 2s infinite;
+} */
+
+/* @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+    40% { transform: translateY(-20px) translateX(-50%); }
+    60% { transform: translateY(-10px) translateX(-50%); }
+} */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero h1, .main-title {
+        font-size: 3.5rem;
+    }
+    
+    .hero .tagline, .typewriter-text {
+        font-size: 1.4rem;
+    }
+    
+    .navbar {
+        padding: 10px;
+        justify-content: center;
+    }
+    
+    .logo-container {
+        position: relative;
+        margin-bottom: 10px;
+        left: 0;
+    }
+    
+    .nav-links {
+        margin-top: 120px;
+    }
+    
+    .content-section {
+        padding: 1.5rem;
+    }
+    
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .logo {
+        margin-bottom: 1rem;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 0.5rem;
+    }
+    
+    .video-container {
+        height: auto;
+    }
+    
+    .hero {
+        padding: 3rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+    
+    .hero .tagline {
+        font-size: 1.2rem;
+    }
+}
+
+/* Video container with enhanced visibility */
+.video-container {
+    margin-bottom: 4rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* Enhanced shadow */
+    border: 2px solid var(--primary);
+    background-color: rgba(255, 255, 255, 0.3); /* Slight background for container */
+}
+
+.video-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(136, 176, 75, 0.1);
+    z-index: 1;
+}
+
+video {
+    width: 100%;
+    max-height: 600px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.video-container:hover video {
+    transform: scale(1.02);
+}
+
+/* Updated content section styles for better visibility against background image */
+.content-section {
+    margin-bottom: 4rem;
+    background-color: rgba(255, 255, 255, 0.9); /* More opacity for better readability */
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    transition: transform 0.3s ease;
+    border-left: 4px solid var(--primary);
+    background-color: rgba(255, 255, 255, 0.7); /* More transparency */
+}
+
+.content-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(44, 62, 80, 0.1);
+}
+
+h2 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent);
+    position: relative;
+    padding-left: 1rem;
+}
+
+h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--highlight);
+}
+
+.section-content {
+    padding: 1rem 0;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2.5rem;
+    background-color: var(--accent);
+    color: var(--text-light);
+    border-top: 3px solid var(--highlight);
+}
+
+/* Pulse animation */
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Loading overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.logo-loader {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-loader img {
+    width: 150px;
+    height: auto;
+    z-index: 2;
+    animation: logo-pulse 2s infinite ease-in-out;
+}
+
+@keyframes logo-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.pulse-rings {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.ring {
+    position: absolute;
+    border: 3px solid var(--highlight);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    animation: pulse-ring 3s infinite;
+}
+
+.ring:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.ring:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.ring:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.8;
+        border-color: var(--primary);
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+        border-color: var(--highlight);
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Custom Menu Bar Styles */
+.navbar {
+    background-color: rgba(46, 125, 50, 0.9); /* More opacity for accent color */
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Changed from space-between to flex-end */
+    padding: 10px 40px 10px 220px; /* Increased left padding to account for moved logo */
+    border-top: 5px solid var(--highlight);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+    height: 70px; /* Fixed height for the menu bar */
+}
+
+/* Updated Logo Container Style with Green Color */
+.logo-container {
+    background: var(--primary);
+    padding: 10px;
+    /* New clip-path for square top with ribbon bottom */
+    clip-path: polygon(
+        0% 0%,     /* Top left - square */
+        100% 0%,   /* Top right - square */
+        100% 70%,  /* Right side before ribbon */
+        85% 70%,   /* Right ribbon start */
+        75% 85%,   /* Right ribbon angle */
+        50% 100%,  /* Bottom center point */
+        25% 85%,   /* Left ribbon angle */
+        15% 70%,   /* Left ribbon start */
+        0% 70%     /* Left side before ribbon */
+    );
+    border-top: 4px solid var(--highlight); /* Yellow top border to match navbar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 30px;
+    top: 0;
+    height: 120px;
+    width: 170px;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.logo-container:hover {
+    transform: translateY(-3px);
+    background: #7DA046; /* Slightly darker primary green */
+}
+
+.logo-container a {
+    display: block;
+    text-decoration: none;
+}
+
+.logo {
+    height: 95px; /* Increased size */
+    max-width: 150px;
+    object-fit: contain;
+    animation: fadeIn 1s ease forwards;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px; /* Slightly reduced from 30px */
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    transition: color 0.3s, transform 0.3s;
+    position: relative;
+    opacity: 0;
+    animation: fadeInDown 0.5s forwards;
+}
+
+.nav-links a:nth-child(1) { animation-delay: 0.1s; }
+.nav-links a:nth-child(2) { animation-delay: 0.2s; }
+.nav-links a:nth-child(3) { animation-delay: 0.3s; }
+.nav-links a:nth-child(4) { animation-delay: 0.4s; }
+
+.nav-links a:hover {
+    color: var(--sunshine);
+    transform: translateY(-2px);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--highlight);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a.active {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* Updated Split Text Title Effect with Yellow Color */
+.split-text-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+/* Title with dark yellow color */
+.split-text {
+    font-size: 5rem;
+    font-weight: bold;
+    position: relative;
+    color: #F1C40F; /* Dark yellow color */
+    text-shadow: 
+        3px 3px 0 #2C3E50, /* Dark shadow for depth */
+        2px 2px 8px rgba(0,0,0,0.7); /* Shadow for readability */
+    margin-bottom: 2rem;
+    padding: 0 20px;
+    line-height: 1.2;
+    letter-spacing: 2px;
+}
+
+/* Character container for split animation */
+.char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+/* Typewriter effect for tagline */
+.typewriter-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.typewriter-text {
+    font-size: 1.8rem;
+    color: #FFFFFF; /* White for high contrast */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Shadow for readability */
+    font-weight: 500;
+    line-height: 1.5;
+    position: relative;
+    width: fit-content;
+    padding: 0 10px;
+    background: rgba(46, 125, 50, 0.6); /* Semi-transparent green background */
+    border-left: 4px solid #F5B041; /* Orange border */
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.typewriter-text::after {
+    content: '|';
+    position: absolute;
+    right: -8px;
+    color: #F5B041; /* Orange cursor */
+    font-weight: bold;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .hero h1, .main-title {
+        font-size: 3.5rem;
+    }
+    
+    .hero .tagline, .typewriter-text {
+        font-size: 1.4rem;
+    }
+    
+    .navbar {
+        padding: 10px;
+        justify-content: center;
+    }
+    
+    .logo-container {
+        position: relative;
+        margin-bottom: 10px;
+        left: 0;
+    }
+    
+    .nav-links {
+        margin-top: 120px;
+    }
+    
+    .content-section {
+        padding: 1.5rem;
+    }
+    
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .logo {
+        margin-bottom: 1rem;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 0.5rem;
+    }
+    
+    .video-container {
+        height: auto;
+    }
+    
+    .hero {
+        padding: 3rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+    
+    .hero .tagline {
+        font-size: 1.2rem;
+    }
+}
+
+/* Video Background */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Update the video overlay to be more transparent */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1); /* Changed from 0.3 to 0.1 - much more transparent */
+    z-index: 1;
+}
+
+/* Add brightness filter to the video */
+#background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    object-fit: cover;
+    filter: brightness(1.2); /* Increase brightness by 20% */
+    animation: video-fade-in 3s ease-in-out forwards;
+}
+
+@keyframes video-fade-in {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50%) scale(1.1);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+}
+
+/* Enhance text visibility for brighter background */
+.main-title {
+    color: var(--accent) !important; /* Changed from var(--title-color) to var(--accent) */
+    font-family: 'Roboto Slab', serif;
+    font-size: 5rem !important;
+    font-weight: bold;
+    text-shadow: 
+        3px 3px 0 rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 0, 0, 0.7);
+    margin-bottom: 2rem;
+    padding: 0 20px;
+    line-height: 1.2;
+    letter-spacing: 2px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    display: block !important;
+    animation: none !important; /* Prevent animations from hiding it */
+}
+
+.typewriter-text {
+    background: rgba(0, 0, 0, 0.5); /* Slightly darker background for text */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+/* Dropdown menu styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.dropdown-toggle::after {
+    content: '▼';
+    font-size: 10px;
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.dropdown.active .dropdown-toggle::after {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(46, 125, 50, 0.95);
+    min-width: 200px;
+    border-radius: 4px;
+    padding: 0.5rem 0;
+    margin-top: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    z-index: 1000;
+}
+
+.dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
+    background-color: rgba(46, 125, 50, 0.95);
+    transform: rotate(45deg);
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 8px 15px;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.dropdown.active .dropdown-menu a {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.dropdown-menu a:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.dropdown-menu a:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding-left: 20px;
+}
+
+/* Add hover functionality to dropdowns */
+@media (min-width: 992px) { /* Only apply hover on larger screens */
+    .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .dropdown:hover .dropdown-toggle::after {
+        transform: rotate(180deg);
+    }
+    
+    .dropdown:hover .dropdown-menu a {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Add transition delay for dropdown menu items on hover */
+@media (min-width: 992px) {
+    .dropdown:hover .dropdown-menu a:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+    
+    .dropdown:hover .dropdown-menu a:nth-child(2) {
+        transition-delay: 0.2s;
+    }
+}
+
+/* Add to front_page_.css */
+.o2-profile {
+    margin-top: 80px;
+    min-height: 100vh;
+}
+#o2-profile-container {
+    padding: 2rem;
+}

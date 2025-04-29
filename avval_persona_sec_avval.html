@@ -1,0 +1,346 @@
+<!-- avval_persona_sec_avval.html -->
+<style>
+    /* Avval Persona Card Styles */
+    .avval-persona {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .persona-card {
+        background: rgba(255, 255, 255, 0.9);
+        max-width: 800px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        transform: translateY(30px);
+        opacity: 0;
+        animation: card-appear 0.8s forwards ease-out 0.5s;
+    }
+
+    .persona-header {
+        background: linear-gradient(135deg, #88B04B, #2E7D32);
+        padding: 2rem;
+        color: white;
+        text-align: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Persona image styling */
+    .persona-image-container {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 4px solid #F5B041;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        margin: 1rem auto 0;
+        opacity: 0;
+        animation: pop-in 0.5s forwards ease-out 0.7s;
+    }
+
+    .persona-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .persona-title {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        animation: title-glow 2s ease-in-out infinite alternate;
+    }
+
+    .persona-content {
+        padding: 2rem;
+        color: #2C3E50;
+    }
+
+    .persona-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+        opacity: 0;
+        animation: fade-in 0.6s forwards ease-out 1s;
+    }
+
+    .persona-table tr {
+        border-bottom: 1px solid rgba(136, 176, 75, 0.2);
+        transition: background-color 0.3s ease;
+    }
+
+    .persona-table tr:hover {
+        background-color: rgba(136, 176, 75, 0.05);
+    }
+
+    .persona-table tr:last-child {
+        border-bottom: none;
+    }
+
+    .persona-table th, .persona-table td {
+        padding: 1rem;
+        text-align: left;
+    }
+
+    .persona-table th {
+        width: 30%;
+        color: #2E7D32;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+    }
+
+    .th-emoji {
+        margin-right: 0.5rem;
+        font-size: 1.4rem;
+    }
+
+    .persona-table td {
+        width: 70%;
+    }
+
+    .path-visualization {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: rgba(136, 176, 75, 0.1);
+        border-radius: 8px;
+        border-left: 4px solid #F5B041;
+        opacity: 0;
+        transform: translateX(-20px);
+        animation: slide-in 0.6s forwards ease-out 1.5s;
+    }
+
+    .path-title {
+        color: #2E7D32;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .path-title-emoji {
+        margin-right: 0.5rem;
+        font-size: 1.4rem;
+    }
+
+    .path-steps {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .path-step {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .step-emoji {
+        margin-right: 0.5rem;
+    }
+
+    .step-arrow {
+        color: #F5B041;
+        font-size: 1.5rem;
+        margin: 0 0.5rem;
+    }
+
+    .trait-item {
+        display: inline-block;
+        background: rgba(136, 176, 75, 0.15);
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        margin: 0.25rem;
+        font-weight: 500;
+        transform: scale(0.8);
+        opacity: 0;
+        animation: pop-in 0.5s forwards ease-out;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .trait-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .trait-1 { animation-delay: 1.2s; }
+    .trait-2 { animation-delay: 1.4s; }
+    .trait-3 { animation-delay: 1.6s; }
+    .trait-4 { animation-delay: 1.8s; }
+
+    /* Decorative elements */
+    .persona-decoration {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        opacity: 0.2;
+    }
+
+    .decoration-1 {
+        top: 20px;
+        left: 20px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 2L1 12h3v9h6v-6h4v6h6v-9h3L12 2z'/%3E%3C/svg%3E") no-repeat center center;
+    }
+
+    .decoration-2 {
+        bottom: 20px;
+        right: 20px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E") no-repeat center center;
+    }
+
+    /* Same animations as before */
+    @keyframes card-appear {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slide-in {
+        from { transform: translateX(-20px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes pop-in {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes title-glow {
+        from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+        to { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.5); }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .persona-title {
+            font-size: 2rem;
+        }
+        
+        .persona-content {
+            padding: 1.5rem;
+        }
+        
+        .persona-table th, .persona-table td {
+            padding: 0.75rem;
+        }
+        
+        .path-steps {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .step-arrow {
+            transform: rotate(90deg);
+            margin: 0.25rem 0;
+        }
+    }
+</style>
+
+<section id="persona-section" class="avval-persona">
+    <div class="persona-card">
+        <div class="persona-header">
+            <h2 class="persona-title">👤 User Persona: Avval Halani</h2>
+            <div class="persona-image-container">
+                <img src="avval.jpg" alt="Avval Halani" class="persona-image">
+            </div>
+            <div class="persona-decoration decoration-1"></div>
+            <div class="persona-decoration decoration-2"></div>
+        </div>
+        <div class="persona-content">
+            <table class="persona-table">
+                <tr>
+                    <th><span class="th-emoji">👨‍💼</span> Name</th>
+                    <td>Avval Halani</td>
+                </tr>
+                <tr>
+                    <th><span class="th-emoji">🧑‍🔬</span> Role</th>
+                    <td>Staff Member & Research Intern</td>
+                </tr>
+                <tr>
+                    <th><span class="th-emoji">🏫</span> Affiliation</th>
+                    <td>FLAME University (Graduated + Working)</td>
+                </tr>
+                <tr>
+                    <th><span class="th-emoji">🗓️</span> Age</th>
+                    <td>24 years</td>
+                </tr>
+                <tr>
+                    <th><span class="th-emoji">🎯</span> Primary Goal</th>
+                    <td>Quickly reach the Financial Lab, collaborate with Prajish Sir, attend meetings, and grab quick snacks</td>
+                </tr>
+            </table>
+            
+            <div class="path-visualization">
+                <div class="path-title">
+                    <span class="path-title-emoji">🧭</span> Typical Movements:
+                </div>
+                <div class="path-steps">
+                    <div class="path-step">
+                        <span class="step-emoji">🚪</span> Enters through Main Gate
+                    </div>
+                    <div class="step-arrow">➔</div>
+                    <div class="path-step">
+                        <span class="step-emoji">💻</span> Heads straight to Financial Lab
+                    </div>
+                    <div class="step-arrow">➔</div>
+                    <div class="path-step">
+                        <span class="step-emoji">👨‍🏫</span> Occasional visits to Prajish Sir's Office
+                    </div>
+                    <div class="step-arrow">➔</div>
+                    <div class="path-step">
+                        <span class="step-emoji">🗣️</span> Meetings Rooms
+                    </div>
+                    <div class="step-arrow">➔</div>
+                    <div class="path-step">
+                        <span class="step-emoji">☕</span> Quick stops at cafeteria
+                    </div>
+                </div>
+            </div>
+            
+            <table class="persona-table">
+                <tr>
+                    <th><span class="th-emoji">🚶</span> Behavior & Preferences</th>
+                    <td>Prefers the fastest routes; loves using stairs to stay active; recognizes paths by major landmarks (art walls, notice boards, lounge areas)</td>
+                </tr>
+                <tr>
+                    <th><span class="th-emoji">😖</span> Pain Points</th>
+                    <td>Poorly marked shortcuts, slow elevators during peak times</td>
+                </tr>
+                <tr>
+                    <th><span class="th-emoji">🖥️</span> Tech Behavior</th>
+                    <td>Always carrying a laptop, headphones, and smartphone</td>
+                </tr>
+                <tr>
+                    <th><span class="th-emoji">😃</span> Personality Traits</th>
+                    <td>
+                        <span class="trait-item trait-1">Energetic 🚀</span>
+                        <span class="trait-item trait-2">Curious 🔍</span>
+                        <span class="trait-item trait-3">Tech-savvy 📱</span>
+                        <span class="trait-item trait-4">Fitness lover 🏋️</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="th-emoji">💭</span> Motivations</th>
+                    <td>Save time on navigation to focus more on research, tech projects, and personal fitness goals.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,241 @@
+<!-- user_design_sec_o2.html -->
+<style>
+    /* O₂ Profile Card Styles */
+    .o2-profile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 2rem;
+        padding-top: 100px; /* Added top padding to avoid navbar overlap */
+        margin-top: 70px; /* Match the navbar height */
+    }
+
+    .profile-card {
+        background: rgba(255, 255, 255, 0.9);
+        max-width: 800px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        transform: translateY(30px);
+        opacity: 0;
+        animation: card-appear 0.8s forwards ease-out 0.5s;
+    }
+
+    .profile-header {
+        background: linear-gradient(135deg, #5bc0eb, #3a7ca5); /* Changed from green to blue gradient */
+        padding: 2rem;
+        color: white;
+        text-align: center;
+        position: relative;
+    }
+
+    .profile-title {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        animation: title-glow 2s ease-in-out infinite alternate;
+    }
+
+    .profile-content {
+        padding: 2rem;
+        color: #2C3E50;
+        position: relative;
+    }
+    
+    /* O₂ molecule representation */
+    .molecule-container {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 2rem auto;
+        position: relative;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .molecule {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .atom {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #5bc0eb, #3a7ca5) !important; /* Added !important to prevent overrides */
+        box-shadow: 0 0 20px rgba(91, 192, 235, 0.6);
+        position: absolute;
+        animation: pulse 2s ease-in-out infinite alternate;
+    }
+
+    .atom:first-child {
+        left: 30px;
+        animation-delay: 0s;
+    }
+
+    .atom:last-child {
+        right: 30px;
+        animation-delay: 1s;
+    }
+
+    .bond {
+        width: 60px;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .profile-intro {
+        font-size: 1.3rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid #5bc0eb;
+        padding-left: 1rem;
+        transform: translateX(-20px);
+        opacity: 0;
+        animation: slide-in 0.6s forwards ease-out 1s;
+    }
+
+    .profile-activities {
+        font-size: 1.2rem;
+        line-height: 1.5;
+        margin: 1.5rem 0 0.5rem;
+        opacity: 0;
+        animation: fade-in 0.6s forwards ease-out 1.5s;
+    }
+
+    .profile-summary {
+        margin-top: 2rem;
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-align: center;
+        color: #3a7ca5; /* Changed from #2E7D32 to #3a7ca5 */
+        border-top: 2px dashed rgba(91, 192, 235, 0.3); /* Changed from green to blue */
+        padding-top: 1.5rem;
+        opacity: 0;
+        animation: fade-in 0.6s forwards ease-out 2.2s;
+    }
+
+    .bubble {
+        position: absolute;
+        background: rgba(91, 192, 235, 0.15);
+        border-radius: 50%;
+        animation: rise var(--rise-duration) ease-in infinite;
+        opacity: 0.7;
+    }
+
+    /* Generate 10 bubbles with different sizes and positions */
+    .bubble:nth-child(1) { width: 20px; height: 20px; left: 10%; --rise-duration: 8s; animation-delay: 0s; }
+    .bubble:nth-child(2) { width: 15px; height: 15px; left: 20%; --rise-duration: 10s; animation-delay: 2s; }
+    .bubble:nth-child(3) { width: 25px; height: 25px; left: 30%; --rise-duration: 7s; animation-delay: 1s; }
+    .bubble:nth-child(4) { width: 10px; height: 10px; left: 40%; --rise-duration: 12s; animation-delay: 3s; }
+    .bubble:nth-child(5) { width: 18px; height: 18px; left: 50%; --rise-duration: 9s; animation-delay: 4s; }
+    .bubble:nth-child(6) { width: 22px; height: 22px; left: 60%; --rise-duration: 11s; animation-delay: 0s; }
+    .bubble:nth-child(7) { width: 12px; height: 12px; left: 70%; --rise-duration: 13s; animation-delay: 2s; }
+    .bubble:nth-child(8) { width: 28px; height: 28px; left: 80%; --rise-duration: 8s; animation-delay: 3s; }
+    .bubble:nth-child(9) { width: 16px; height: 16px; left: 90%; --rise-duration: 10s; animation-delay: 1s; }
+    .bubble:nth-child(10) { width: 14px; height: 14px; left: 15%; --rise-duration: 9s; animation-delay: 5s; }
+
+    /* Animations */
+    @keyframes card-appear {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slide-in {
+        from { transform: translateX(-20px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes title-glow {
+        from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+        to { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.5); }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+
+    @keyframes pulse {
+        from { transform: scale(1); box-shadow: 0 0 20px rgba(91, 192, 235, 0.6); }
+        to { transform: scale(1.1); box-shadow: 0 0 30px rgba(91, 192, 235, 0.8); }
+    }
+
+    @keyframes rise {
+        0% { bottom: -20px; opacity: 0.7; }
+        100% { bottom: 100%; opacity: 0; }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .profile-title {
+            font-size: 2rem;
+        }
+        
+        .profile-intro, .profile-summary {
+            font-size: 1.1rem;
+        }
+        
+        .profile-content {
+            padding: 1.5rem;
+        }
+        
+        .molecule-container {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .atom {
+            width: 60px;
+            height: 60px;
+        }
+    }
+</style>
+
+<section id="profile-section" class="o2-profile">
+    <div class="profile-card">
+        <div class="profile-header">
+            <h2 class="profile-title">🌟 Who's O₂ Molecule? 🌟</h2>
+        </div>
+        <div class="profile-content">
+            <!-- Bubbles background effect -->
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            
+            <!-- O₂ molecule representation -->
+            <div class="molecule-container">
+                <div class="molecule">
+                    <div class="atom"></div>
+                    <div class="bond"></div>
+                    <div class="atom"></div>
+                </div>
+            </div>
+            
+            <p class="profile-intro">Meet O₂ Molecule — a tiny, invisible adventurer floating freely around the APJ Building! 🌬️<br>Always buzzing with energy ⚡, O₂ loves sneaking into every corner, helping people breathe easy and spaces stay fresh! 🌿</p>
+            
+            <p class="profile-activities">When not swirling through open doors 🚪 or slipping under windows 🪟, you'll find O₂ chilling in the lecture halls 🏛️, labs 🔬, and even joining coffee breaks ☕ with the humans!</p>
+            
+            <p class="profile-summary">In short: O₂ = invisible explorer + life-giver. 🌟</p>
+        </div>
+    </div>
+</section>
